@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Arpsy</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="art_image">Art image</string>
+    <string name="search_for_art">Search for art</string>
+    <string name="search">Search</string>
+    <string name="add_to_favorites">add to favorites</string>
+</resources>
