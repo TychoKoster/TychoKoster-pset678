@@ -1,2 +1,2 @@
 # TychoKoster-pset678
-This is an art retrieval app, not all functions are implemented
+This is an art retrieval app, it is possible to search art that is available in the Rijksmuseum database. It is possible to register and log in and to add art to your favorite list. It is also to possible to search for existing users and to watch their favorite art list. You can delete items from your favorite list as well. When clicked on an item in your favorite list it will show more information about that piece of art.
