@@ -3,18 +3,27 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/home"/>
+        <item
             android:id="@+id/nav_search"
             android:icon="@drawable/search"
-            android:title="Search" />
+            android:title="@string/search1" />
         <item
             android:id="@+id/nav_favorites"
             android:icon="@drawable/like"
-            android:title="Favorites"
+            android:title="@string/favorites"
             />
+        <item
+            android:id="@+id/nav_search_profile"
+            android:icon="@drawable/search"
+            android:title="@string/search_users">
+        </item>
         <item
             android:id="@+id/nav_profle"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Profile" />
+            android:title="@string/profile" />
     </group>
 
 </menu>

@@ -2,17 +2,14 @@ package koster.tychokoster_pset678;
 
 import android.os.AsyncTask;
 import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * Created by Yvonn on 20-10-2016.
- */
+// Retrieves all the information from a single art piece.
 
-public class RetrieveSingleArt extends AsyncTask<String, String, String> {
+class RetrieveSingleArt extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... urls) {

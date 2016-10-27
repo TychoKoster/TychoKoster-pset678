@@ -2,6 +2,7 @@ package koster.tychokoster_pset678;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,30 +12,39 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import org.json.JSONException;
-
 import java.util.concurrent.ExecutionException;
+
+// This is the main activity which is used for the navigation drawer and handling all the fragment
+// changes that are done.
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    // Initializes all fragments.
     SearchFragment searchfragment = new SearchFragment();
     FavoriteFragment favoritefragment = new FavoriteFragment();
-    ArtInfoFragment artinfofragment = new ArtInfoFragment();
+    ProfileFragment profilefragment = new ProfileFragment();
+    HomeFragment homefragment = new HomeFragment();
+    SearchProfileFragment searchprofilefragment = new SearchProfileFragment();
+    FirebaseAuth auth;
+    FirebaseAuth.AuthStateListener authlistener;
 
     public static Bundle myBundle = new Bundle();
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // Initializes the navigation drawer.
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -42,7 +52,30 @@ public class MainActivity extends AppCompatActivity
 
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        auth = FirebaseAuth.getInstance();
+        // Checks if the user is logged in or not.
+        authlistener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                Log.d("Log", "Im here");
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                // If the user is logged in, it will go to the home fragment.
+                if(user != null){
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                    if(savedInstanceState == null ) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, homefragment).addToBackStack(null).commit();
+                    }
+                }
+                // Otherwise it will go to the log in fragment.
+                else {
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    LogInFragment loginfragment = new LogInFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content_main, loginfragment).addToBackStack(null).commit();
 
+                }
+            }
+        };
+        // This is used to select the correct selected item on the navigation drawer when the user pressed the back button.
         this.getSupportFragmentManager().addOnBackStackChangedListener(
                 new FragmentManager.OnBackStackChangedListener() {
                     public void onBackStackChanged() {
@@ -52,17 +85,45 @@ public class MainActivity extends AppCompatActivity
                         } else if (current instanceof FavoriteFragment){
                             navigationView.setCheckedItem(R.id.nav_favorites);
                         }
-                        else {
+                        else if (current instanceof ArtInfoFragment) {
+                            navigationView.setCheckedItem(R.id.nav_search);
+                        }
+                        else if (current instanceof ProfileFragment) {
                             navigationView.setCheckedItem(R.id.nav_profle);
+                        }
+                        else if (current instanceof SearchProfileFragment) {
+                            navigationView.setCheckedItem(R.id.nav_search_profile);
+                        }
+                        else {
+                            navigationView.setCheckedItem(R.id.nav_home);
                         }
                     }
                 });
     }
 
+    // Add auth listener on start.
+    public void onStart()
+    {
+        super.onStart();
+        auth.addAuthStateListener(authlistener);
+    }
+
+    // Removes auth listener on stop.
+    public void onStop(){
+        super.onStop();
+        if (authlistener != null)
+        {
+            auth.removeAuthStateListener(authlistener);
+        }
+    }
+
+    // Gets the current fragment.
     public Fragment getCurrentFragment() {
         return this.getSupportFragmentManager().findFragmentById(R.id.content_main);
     }
 
+    // When the user pressed the back button it will pop the first fragment in the backstack.
+    // Or it will close the navigation drawer when it is open.
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -77,6 +138,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -100,6 +162,8 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    // This will go the fragment that is selected in the navigation drawer. And adds the fragment
+    // to the backstack.
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -117,18 +181,30 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_profle) {
-
+            fragmentTransaction.replace(R.id.content_main, profilefragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_home) {
+            fragmentTransaction.replace(R.id.content_main, homefragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_search_profile) {
+            fragmentTransaction.replace(R.id.content_main, searchprofilefragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    // The on click for the search button, in search art.
     public void searchArt(View v) throws InterruptedException, ExecutionException, JSONException {
         searchfragment.search();
     }
 
-//    public void addToFavorites(View v) throws JSONException {
-//        artinfofragment.addToFavorites();
-//    }
+    // Called when the remove icon in the favorite list is pressed.
+    public void removelist(String id) {
+        favoritefragment.removeItem(id);
+    }
 }

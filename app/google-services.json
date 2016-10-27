@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "1095842678920",
-    "firebase_url": "https://tychokoster-pset678.firebaseio.com",
-    "project_id": "tychokoster-pset678",
-    "storage_bucket": "tychokoster-pset678.appspot.com"
+    "project_number": "472240216823",
+    "firebase_url": "https://mijn-project-3cce5.firebaseio.com",
+    "project_id": "mijn-project-3cce5",
+    "storage_bucket": "mijn-project-3cce5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1095842678920:android:fb9bdcd386779f62",
+        "mobilesdk_app_id": "1:472240216823:android:fb9bdcd386779f62",
         "android_client_info": {
           "package_name": "koster.tychokoster_pset678"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1095842678920-c12erdo2rhai3e9h11o2vok4ujfn3im5.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "koster.tychokoster_pset678",
-            "certificate_hash": "4A5AABEFEFE208BE57BF1FDAE16BBA20C78279FD"
-          }
-        },
-        {
-          "client_id": "1095842678920-jnf1rhuceva3bi3su4ev7d5l3l9lfgii.apps.googleusercontent.com",
+          "client_id": "472240216823-usbhub0f87pl49gqvgtd5jo51m6pekl8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCnUOeLi2kUdmfwZPB_VXHpvPrxgQSzk1w"
+          "current_key": "AIzaSyCHpLHKANcSlPvfSTwUNlm1TqjB_88Ykko"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1095842678920-jnf1rhuceva3bi3su4ev7d5l3l9lfgii.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

@@ -2,11 +2,12 @@ package koster.tychokoster_pset678;
 
 import android.os.AsyncTask;
 import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+// Retrieves all the art that was found with the query used by the user.
 
 class RetrieveArt extends AsyncTask<String, String, String> {
     /* Retrieves the movie info from the API and stores it into a String. */

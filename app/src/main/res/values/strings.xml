@@ -9,4 +9,17 @@
     <string name="search_for_art">Search for art</string>
     <string name="search">Search</string>
     <string name="add_to_favorites">add to favorites</string>
+    <string name="enter_email">Enter email</string>
+    <string name="enter_password">Enter password</string>
+    <string name="log_in">Log in</string>
+    <string name="register_here">Register here</string>
+    <string name="enter_password_again">Enter password again</string>
+    <string name="enter_nickname">Enter nickname</string>
+    <string name="register">Register</string>
+    <string name="search_for_users">Search for users</string>
+    <string name="home">Home</string>
+    <string name="search1">Search</string>
+    <string name="favorites">Favorites</string>
+    <string name="search_users">Search Users</string>
+    <string name="profile">Profile</string>
 </resources>

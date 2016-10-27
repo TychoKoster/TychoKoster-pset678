@@ -3,12 +3,9 @@ package koster.tychokoster_pset678;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +14,17 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+// Fragment that show the search art page.
+
 public class SearchFragment extends Fragment {
 
+    // Creates all variables used in the class.
     ArrayList<String> artlist = new ArrayList<>();
     ArrayList<String> urllist = new ArrayList<>();
     ArrayList<String> idlist = new ArrayList<>();
@@ -44,25 +41,26 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.search_layout, container, false);
         search_text = (EditText) view.findViewById(R.id.search_art);
+        list = (ListView) view.findViewById(R.id.searchlist);
         return view;
     }
 
+    // Searches for the art with the use of the Rijksmuseum API.
     public void search() throws ExecutionException, InterruptedException, JSONException {
-        search_text = (EditText) getView().findViewById(R.id.search_art);
         String text = search_text.getText().toString();
         InputMethodManager inputManager = (InputMethodManager)
                 getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().
                 getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         if(text.equals("")){
-            Toast.makeText(getActivity(),"Search was empty", Toast.LENGTH_SHORT).show();;
+            Toast.makeText(getActivity(),"Search was empty", Toast.LENGTH_SHORT).show();
         }
         else {
-            list = (ListView) getView().findViewById(R.id.searchlist);
             retrieve = new RetrieveArt();
             retrieved_art = retrieve.execute(text).get();
             json_art = new JSONObject(retrieved_art);
             art_array = json_art.getJSONArray("artObjects");
+            // Stores all the retrieved art in arraylists with titles and urls.
             for(int i=0; i<art_array.length(); i++){
                 JSONObject object = art_array.getJSONObject(i);
                 String title = object.get("title").toString();
@@ -79,8 +77,10 @@ public class SearchFragment extends Fragment {
                 idlist.add(i, id);
                 artlist.add(i, title);
             }
+            // Sets the listview with all the retrieved art from the search, with the use of the art adapter.
             ArtAdapter adapter = new ArtAdapter(artlist, urllist, getActivity());
             list.setAdapter(adapter);
+            // When clicked on an item in the retrieved list it shows the information page of this piece of art.
             list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
