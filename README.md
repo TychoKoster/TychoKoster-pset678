@@ -5,9 +5,15 @@ This is an art retrieval app, it is possible to search art that is available in 
 This is the homescreen, which shows the welcome text of the app
 
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976715/a960114c-bca3-11e6-971b-2902c73d841e.png" width = "200" height = "300" />
+This is the page to search for the art. You fill in a query term and the results are shown below the textbox when clicked on search.
+If there are no search results it will show a text with "No results are found".
 
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976709/a908ddbe-bca3-11e6-9053-4b4fa55efb71.png" width = "200" height = "300" />
+This is the page to search for an user. After search is pressed, it will check if the user exist. If so the app will go to the userpage of that user. If not a message will be shown with "The user does not exist."
+
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976705/a8f1ae46-bca3-11e6-8c9f-7ba4b02fb235.png" width = "200" height = "300" />
+
+
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976711/a91c8f58-bca3-11e6-942c-18d4824d15cb.png" width = "200" height = "300" />
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976707/a8f6ad6a-bca3-11e6-8828-5a224aa8e322.png" width = "200" height = "300" />
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976714/a92c08ac-bca3-11e6-80c1-f68d73a624c8.png" width = "200" height = "300" />
