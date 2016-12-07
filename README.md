@@ -3,6 +3,7 @@ This is an art retrieval app, it is possible to search art that is available in 
 
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976706/a8f48d46-bca3-11e6-957f-ef49bbe6ae13.png" width = "200" height = "300" />
 This is the homescreen, which shows the welcome text of the app
+
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976715/a960114c-bca3-11e6-971b-2902c73d841e.png" width = "200" height = "300" />
 
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976709/a908ddbe-bca3-11e6-9053-4b4fa55efb71.png" width = "200" height = "300" />
