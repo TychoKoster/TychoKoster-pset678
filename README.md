@@ -21,7 +21,7 @@ This screenshot shows the navigation drawer that is used for the app. If pressed
 This shows the search page after the user searched a query term. It shows a list with all the results that were retrieved from the rijksmuseum API. If pressed on an item in the list, it will show information about the specific artpiece.
 
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976714/a92c08ac-bca3-11e6-80c1-f68d73a624c8.png" width = "200" height = "300" />
-This page shows the information of a clicked artpiece. It shows the artist, information about the art itself and the date it was made.
+This page shows the information of a clicked artpiece. It shows the artist, information about the art itself and the date it was made. Here it is possible to add the specific art to your art collection. So that you and everyone that searched you can see it.
 
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976712/a91ffb34-bca3-11e6-9687-1a0e00b2c44f.png" width = "200" height = "300" />
 This is the page that shows the found user, when a user was searched. It shows their favorite list and their username.
