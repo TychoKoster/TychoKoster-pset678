@@ -15,10 +15,14 @@ This is the page to search for an user. After search is pressed, it will check i
 This page shows the nickname of the current user and a way to sign out. When pressed the app will go to the login screen.
 
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976711/a91c8f58-bca3-11e6-942c-18d4824d15cb.png" width = "200" height = "300" />
-
+This screenshot shows the navigation drawer that is used for the app. If pressed on a tab in de drawer it will navigate to the respective page.
 
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976707/a8f6ad6a-bca3-11e6-8828-5a224aa8e322.png" width = "200" height = "300" />
+This shows the search page after the user searched a query term. It shows a list with all the results that were retrieved from the rijksmuseum API.
+
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976714/a92c08ac-bca3-11e6-80c1-f68d73a624c8.png" width = "200" height = "300" />
+
+
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976712/a91ffb34-bca3-11e6-9687-1a0e00b2c44f.png" width = "200" height = "300" />
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976710/a911297e-bca3-11e6-9e26-d43095fd628d.png" width = "200" height = "300" />
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976713/a9235a04-bca3-11e6-9f17-be1742891b0d.png" width = "200" height = "300" />
