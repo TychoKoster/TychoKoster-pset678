@@ -56,6 +56,7 @@ public class SearchFragment extends Fragment {
         artlist.clear();
         urllist.clear();
         String text = search_text.getText().toString();
+        // Closes keyboard
         InputMethodManager inputManager = (InputMethodManager)
                 getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().

@@ -100,6 +100,7 @@ public class RegisterFragment extends Fragment {
                     final DatabaseReference userRef = ref.child(emailtext.replaceAll("[./#$\\[\\]]", ","));
                     User user = new User(emailtext, nicknametext);
                     Toast.makeText(getContext(),"Register succesfull", Toast.LENGTH_SHORT).show();
+                    // Closes keyboard
                     InputMethodManager inputManager = (InputMethodManager)
                             getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().

@@ -56,6 +56,7 @@ public class SearchedProfileFragment extends Fragment {
         return view;
     }
 
+    // Sets the adapter for the favorite list of the searched user.
     private void setAdapter(final ArrayList<Art> artlist) {
         // Sets the listview to the created adapter.
         UserAdapter adapter = new UserAdapter(artlist, getContext());

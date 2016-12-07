@@ -52,6 +52,7 @@ public class SearchProfileFragment extends Fragment {
                                 MainActivity.myBundle.putString("email_user", email);
                                 MainActivity.myBundle.putString("nickname_user", usersnapshot.child("nickname").getValue(String.class));
                                 SearchedProfileFragment searchedprofilefragment = new SearchedProfileFragment();
+                                // Closes the keyboard after search is pressed.
                                 InputMethodManager inputManager = (InputMethodManager)
                                         getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                                 inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().

@@ -74,6 +74,7 @@ public class LogInFragment extends Fragment {
     private void logIn(String email_text, String password_text) {
         final FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        // Closes keyboard
         InputMethodManager inputManager = (InputMethodManager)
                 getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().
