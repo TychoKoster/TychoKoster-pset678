@@ -31,3 +31,6 @@ This is the login screen, where user can login if they already made an account. 
 
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976713/a9235a04-bca3-11e6-9f17-be1742891b0d.png" width = "200" height = "300" />
 This is the register page, where not registered users can create an own account. By correctly filling in all the boxes and pressing on register here. If everything is correct it will log in the user automaticaly.
+
+<img src="https://cloud.githubusercontent.com/assets/22144808/20977561/48b4a440-bca6-11e6-978d-40bd6748e153.png" width = "200" height = "300" />
+This is the favorite page. It contains a list with all the favorite of the current user. It is possible to click on an artpiece to show the information about that specific piece of art. It is also possible to remove an artpiece by clicking on the container at the right of the art name.
