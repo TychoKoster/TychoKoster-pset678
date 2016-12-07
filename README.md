@@ -18,11 +18,16 @@ This page shows the nickname of the current user and a way to sign out. When pre
 This screenshot shows the navigation drawer that is used for the app. If pressed on a tab in de drawer it will navigate to the respective page.
 
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976707/a8f6ad6a-bca3-11e6-8828-5a224aa8e322.png" width = "200" height = "300" />
-This shows the search page after the user searched a query term. It shows a list with all the results that were retrieved from the rijksmuseum API.
+This shows the search page after the user searched a query term. It shows a list with all the results that were retrieved from the rijksmuseum API. If pressed on an item in the list, it will show information about the specific artpiece.
 
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976714/a92c08ac-bca3-11e6-80c1-f68d73a624c8.png" width = "200" height = "300" />
-
+This page shows the information of a clicked artpiece. It shows the artist, information about the art itself and the date it was made.
 
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976712/a91ffb34-bca3-11e6-9687-1a0e00b2c44f.png" width = "200" height = "300" />
+This is the page that shows the found user, when a user was searched. It shows their favorite list and their username.
+
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976710/a911297e-bca3-11e6-9e26-d43095fd628d.png" width = "200" height = "300" />
+This is the login screen, where user can login if they already made an account. They can also go and register an account if they want to. Clicking on the "register here", will take them to the register page.
+
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976713/a9235a04-bca3-11e6-9f17-be1742891b0d.png" width = "200" height = "300" />
+This is the register page, where not registered users can create an own account. By correctly filling in all the boxes and pressing on register here. If everything is correct it will log in the user automaticaly.
