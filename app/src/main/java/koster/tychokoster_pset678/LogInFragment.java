@@ -7,9 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,12 +20,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 // Fragment that shows the Log in page
 
 public class LogInFragment extends Fragment {
     MainActivity activity;
     View view;
+    String username;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,12 +72,35 @@ public class LogInFragment extends Fragment {
 
     // Tries to log in the user, if it failed it will show a message, if not it will log in.
     private void logIn(String email_text, String password_text) {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        InputMethodManager inputManager = (InputMethodManager)
+                getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().
+                getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        final DatabaseReference usersRef = database.getReference("Users");
         auth.signInWithEmailAndPassword(email_text, password_text).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(!task.isSuccessful()){
                     Toast.makeText(getContext(),"Failed to log in",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    // After log in, write the username to a data file on the phone so it can be retrieved, easily.
+                    DatabaseReference userRef = usersRef.child(auth.getCurrentUser().getEmail().replaceAll("[./#$\\[\\]]", ","));
+                    userRef.child("nickname").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            username = dataSnapshot.getValue(String.class);
+                            ((MainActivity)getActivity()).writeUsername(getContext(), username);
+                            Toast.makeText(getContext(),"Logged in", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
         });

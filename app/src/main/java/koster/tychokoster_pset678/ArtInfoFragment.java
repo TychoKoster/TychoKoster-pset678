@@ -3,6 +3,7 @@ package koster.tychokoster_pset678;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +79,7 @@ public class ArtInfoFragment extends Fragment {
         }
         // Use unique id of the art to store in the database.
         final DatabaseReference singleArtRef = artRef.child(unique_id);
-        artRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        singleArtRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // If the item is not yet in the database, it will add the item.

@@ -28,6 +28,11 @@ class FavoriteAdapter extends BaseAdapter {
         return artlist.size();
     }
 
+    public void update(ArrayList<Art> new_artlist) {
+        artlist.clear();
+        this.artlist = new_artlist;
+    }
+
     // Gets the item at a certain position in the favorite list.
     @Override
     public Object getItem(int position) {
@@ -42,7 +47,7 @@ class FavoriteAdapter extends BaseAdapter {
 
     // Initializes the view for the favorite list adapter.
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = convertView;
         if(view == null){
@@ -59,7 +64,8 @@ class FavoriteAdapter extends BaseAdapter {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)context).removelist(id);
+                ((MainActivity)context).removelist(id, position);
+
             }
         });
         // Sets no image drawable in the imageview when url is empty.

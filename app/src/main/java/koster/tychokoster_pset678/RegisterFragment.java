@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -98,6 +99,11 @@ public class RegisterFragment extends Fragment {
                 else {
                     final DatabaseReference userRef = ref.child(emailtext.replaceAll("[./#$\\[\\]]", ","));
                     User user = new User(emailtext, nicknametext);
+                    Toast.makeText(getContext(),"Register succesfull", Toast.LENGTH_SHORT).show();
+                    InputMethodManager inputManager = (InputMethodManager)
+                            getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().
+                            getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     userRef.setValue(user);
                 }
             }

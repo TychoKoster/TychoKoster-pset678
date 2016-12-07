@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,16 +28,20 @@ public class FavoriteFragment extends Fragment {
     DatabaseReference artRef;
     FavoriteAdapter adapter;
 
+
     ListView list;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.favorite_layout, container, false);
         list = (ListView) view.findViewById(R.id.favorite_list);
+        TextView emptyview = (TextView) view.findViewById(R.id.empty);
         setUpDB();
         retrieveArt();
+        list.setEmptyView(emptyview);
         return view;
     }
+
 
     // Connect to the database and set up the references that are needed.
     public void setUpDB() {
@@ -57,7 +63,6 @@ public class FavoriteFragment extends Fragment {
                 }
                 addArtToList();
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -66,7 +71,7 @@ public class FavoriteFragment extends Fragment {
     }
 
     // Adds all the retrieved art to the listview by the use of the favorite adapter.
-    public void addArtToList() {
+    private void addArtToList() {
         adapter = new FavoriteAdapter(artlist, getContext());
         list.setAdapter(adapter);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -74,6 +79,8 @@ public class FavoriteFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MainActivity.myBundle.putString("id", artlist.get(position).getId());
+                MainActivity.myBundle.putString("url", artlist.get(position).getUrl());
                 ArtInfoFragment artinfofragment = new ArtInfoFragment();
                 fragmentTransaction.replace(R.id.content_main, artinfofragment);
                 fragmentTransaction.addToBackStack(null);
@@ -84,11 +91,16 @@ public class FavoriteFragment extends Fragment {
     }
 
     // Removes an item from the favorite list and from the firebase database.
-    public void removeItem(String id) {
+    public void removeItem(String id, int position) {
         final DatabaseReference singleArtRef = artRef.child(id);
         singleArtRef.removeValue();
         Toast.makeText(getContext(), "Art removed from favorites", Toast.LENGTH_SHORT).show();
-        retrieveArt();
+        FavoriteFragment favoritefragment = new FavoriteFragment();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_main, favoritefragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
 

@@ -7,4 +7,9 @@
         android:layout_height="match_parent"
         android:id="@+id/favorite_list">
     </ListView>
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Your favorite list is empty" />
 </LinearLayout>

@@ -1,5 +1,6 @@
 package koster.tychokoster_pset678;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -50,6 +52,10 @@ public class SearchProfileFragment extends Fragment {
                                 MainActivity.myBundle.putString("email_user", email);
                                 MainActivity.myBundle.putString("nickname_user", usersnapshot.child("nickname").getValue(String.class));
                                 SearchedProfileFragment searchedprofilefragment = new SearchedProfileFragment();
+                                InputMethodManager inputManager = (InputMethodManager)
+                                        getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().
+                                        getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                                 fragmentTransaction.replace(R.id.content_main, searchedprofilefragment);
                                 fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();

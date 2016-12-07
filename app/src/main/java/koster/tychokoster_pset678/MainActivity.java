@@ -1,6 +1,7 @@
 package koster.tychokoster_pset678;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -19,6 +20,15 @@ import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import org.json.JSONException;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 // This is the main activity which is used for the navigation drawer and handling all the fragment
@@ -35,6 +45,9 @@ public class MainActivity extends AppCompatActivity
     SearchProfileFragment searchprofilefragment = new SearchProfileFragment();
     FirebaseAuth auth;
     FirebaseAuth.AuthStateListener authlistener;
+    private String file = "nickname.data";
+    String nickname;
+    int currentstate;
 
     public static Bundle myBundle = new Bundle();
     @Override
@@ -57,7 +70,6 @@ public class MainActivity extends AppCompatActivity
         authlistener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                Log.d("Log", "Im here");
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 // If the user is logged in, it will go to the home fragment.
                 if(user != null){
@@ -71,7 +83,6 @@ public class MainActivity extends AppCompatActivity
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     LogInFragment loginfragment = new LogInFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.content_main, loginfragment).addToBackStack(null).commit();
-
                 }
             }
         };
@@ -82,17 +93,22 @@ public class MainActivity extends AppCompatActivity
                         Fragment current = getCurrentFragment();
                         if (current instanceof SearchFragment) {
                             navigationView.setCheckedItem(R.id.nav_search);
+                            currentstate = 1;
                         } else if (current instanceof FavoriteFragment){
                             navigationView.setCheckedItem(R.id.nav_favorites);
+                            currentstate = 2;
                         }
                         else if (current instanceof ArtInfoFragment) {
                             navigationView.setCheckedItem(R.id.nav_search);
+                            currentstate = 3;
                         }
                         else if (current instanceof ProfileFragment) {
                             navigationView.setCheckedItem(R.id.nav_profle);
+                            currentstate = 4;
                         }
                         else if (current instanceof SearchProfileFragment) {
                             navigationView.setCheckedItem(R.id.nav_search_profile);
+                            currentstate = 5;
                         }
                         else {
                             navigationView.setCheckedItem(R.id.nav_home);
@@ -117,6 +133,17 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+
     // Gets the current fragment.
     public Fragment getCurrentFragment() {
         return this.getSupportFragmentManager().findFragmentById(R.id.content_main);
@@ -130,7 +157,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
-        else if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+        else if (getSupportFragmentManager().getBackStackEntryCount() > 10)
         {
             getSupportFragmentManager().popBackStack();
         }
@@ -204,7 +231,41 @@ public class MainActivity extends AppCompatActivity
     }
 
     // Called when the remove icon in the favorite list is pressed.
-    public void removelist(String id) {
-        favoritefragment.removeItem(id);
+    public void removelist(String id, int position) {
+        favoritefragment.removeItem(id, position);
+    }
+
+    // Reads the username from the data file on the phone.
+    public void readUsername(Context context) {
+        try {
+            FileInputStream input = context.openFileInput(file);
+            ObjectInputStream object_in = new ObjectInputStream(input);
+            nickname = object_in.readObject().toString();
+            input.close();
+            object_in.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Writes the username to a data file on the phone.
+    public void writeUsername(Context context, String username) {
+        try {
+            nickname = username;
+            FileOutputStream output = context.openFileOutput(file, Context.MODE_PRIVATE);
+            ObjectOutputStream object_out = new ObjectOutputStream(output);
+            object_out.writeObject(nickname);
+            output.close();
+            object_out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

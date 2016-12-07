@@ -13,10 +13,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -42,11 +45,16 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.search_layout, container, false);
         search_text = (EditText) view.findViewById(R.id.search_art);
         list = (ListView) view.findViewById(R.id.searchlist);
+        TextView empty = (TextView) view.findViewById(R.id.emptysearch);
+        list.setEmptyView(empty);
         return view;
     }
 
     // Searches for the art with the use of the Rijksmuseum API.
     public void search() throws ExecutionException, InterruptedException, JSONException {
+        idlist.clear();
+        artlist.clear();
+        urllist.clear();
         String text = search_text.getText().toString();
         InputMethodManager inputManager = (InputMethodManager)
                 getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);

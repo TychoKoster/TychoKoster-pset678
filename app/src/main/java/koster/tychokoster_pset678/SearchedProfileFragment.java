@@ -17,17 +17,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.List;
 
 // This fragment shows the profile of the user that was searched.
 
 public class SearchedProfileFragment extends Fragment {
     ArrayList<Art> artlist = new ArrayList<>();
+    ListView list;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.searched_profile, container, false);
-        ListView list = (ListView) view.findViewById(R.id.searched_list);
+        list = (ListView) view.findViewById(R.id.searched_list);
         TextView nickname = (TextView) view.findViewById(R.id.username_searched);
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         // Retrieves the username and email of the searched user.
@@ -36,12 +38,14 @@ public class SearchedProfileFragment extends Fragment {
         nickname.setText(username);
         DatabaseReference userRef = db.getReference("Users").child(email);
         // Retrieves the favorite list of the searched user from the database.
+        artlist.clear();
         userRef.child("Art").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot artsnapshot : dataSnapshot.getChildren()) {
                     artlist.add(artsnapshot.getValue(Art.class));
                 }
+                setAdapter(artlist);
             }
 
             @Override
@@ -49,6 +53,10 @@ public class SearchedProfileFragment extends Fragment {
 
             }
         });
+        return view;
+    }
+
+    private void setAdapter(final ArrayList<Art> artlist) {
         // Sets the listview to the created adapter.
         UserAdapter adapter = new UserAdapter(artlist, getContext());
         list.setAdapter(adapter);
@@ -59,12 +67,13 @@ public class SearchedProfileFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ArtInfoFragment artinfofragment = new ArtInfoFragment();
+                MainActivity.myBundle.putString("id", artlist.get(position).getId());
+                MainActivity.myBundle.putString("url", artlist.get(position).getUrl());
                 fragmentTransaction.replace(R.id.content_main, artinfofragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
         adapter.notifyDataSetChanged();
-        return view;
     }
 }
