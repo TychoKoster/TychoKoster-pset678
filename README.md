@@ -24,7 +24,7 @@ This shows the search page after the user searched a query term. It shows a list
 This page shows the information of a clicked artpiece. It shows the artist, information about the art itself and the date it was made. Here it is possible to add the specific art to your art collection. So that you and everyone that searched you can see it.
 
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976712/a91ffb34-bca3-11e6-9687-1a0e00b2c44f.png" width = "200" height = "300" />
-This is the page that shows the found user, when a user was searched. It shows their favorite list and their username.
+This is the page that shows the found user, when an user was searched. It shows their favorite list and their username. It is possible to click on their favorites and see the information page of that art piece. You can also add them to your own favore list.
 
 <img src="https://cloud.githubusercontent.com/assets/22144808/20976710/a911297e-bca3-11e6-9e26-d43095fd628d.png" width = "200" height = "300" />
 This is the login screen, where user can login if they already made an account. They can also go and register an account if they want to. Clicking on the "register here", will take them to the register page.
