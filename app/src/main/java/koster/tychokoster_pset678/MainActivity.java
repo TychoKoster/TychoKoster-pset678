@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity
                         getSupportFragmentManager().beginTransaction().replace(R.id.content_main, homefragment).addToBackStack(null).commit();
                     }
                 }
-                // Otherwise it will go to the log in fragment.
+                // Otherwise it will go to the log-in fragment.
                 else {
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     LogInFragment loginfragment = new LogInFragment();
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity
                 });
     }
 
-    // Add auth listener on start.
+    // Add auth listener on start
     public void onStart()
     {
         super.onStart();
